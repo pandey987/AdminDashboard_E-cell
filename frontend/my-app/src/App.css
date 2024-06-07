@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+  display: flex;
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+}
+.abc{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

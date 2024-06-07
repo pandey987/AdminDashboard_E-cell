@@ -1,0 +1,114 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(0, 0, 0);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Based on TailwindCSS recommendations,
+  consider using classes instead of the `@apply` directive
+  @see https://tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction
+*/
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+* {
+  @apply box-border m-0 p-0;
+}
+.container {
+  @apply max-w-[900px] flex justify-evenly mx-auto my-0;
+}
+.card-wrapper {
+  @apply w-[400px] h-[500px] relative;
+}
+.card {
+  @apply absolute w-[350px] h-[450px] -translate-x-2/4 -translate-y-2/4 overflow-hidden shadow-[0_5px_18px_rgba(0,0,0,0.6)] cursor-pointer transition-[0.5s] rounded-2xl left-2/4 top-2/4;
+}
+.card .card-image {
+  @apply absolute w-full h-full z-[2] bg-black transition-[0.5s] text-center left-0 top-0;
+}
+.card img {
+  @apply w-[550px];
+}
+.card:hover img {
+  @apply opacity-40 transition-[0.5s];
+}
+.card:hover .card-image {
+  @apply translate-y-[-100px] transition-all duration-[0.9s];
+}
+
+/**** Social Icons *****/
+.social-icons {
+  @apply absolute -translate-x-2/4 -translate-y-2/4 z-[3] flex left-2/4 top-2/4;
+}
+.social-icons li {
+  list-style: none;
+}
+.social-icons li a {
+  @apply relative block w-[50px] h-[50px] leading-[50px] text-center text-[23px] text-[#333] font-[bold] transition-[0.4s] translate-y-[200px] opacity-0 mx-1.5 my-0 hover:transition-[0.2s];
+}
+.social-icons li a i {
+  @apply inline-block text-[32px] text-white text-center opacity-[0.65] px-[5px] py-2.5 hover:opacity-100 hover:transition-all hover:duration-[0.35s] hover:ease-[ease];
+}
+.social-icons li a i:hover {
+  -webkit-transition: all 0.35s ease;
+}
+.card:hover .social-icons li a {
+  @apply translate-y-0 opacity-100;
+}
+.social-icons li a:hover .fab {
+  @apply text-white;
+}
+.social-icons li a .fab {
+  @apply transition-[0.8s] hover:text-white;
+}
+.social-icons li a .fab:hover {
+  transform: rotateY(360deg);
+}
+.card:hover li:nth-child(1) a {
+  @apply delay-[0.1s];
+}
+.card:hover li:nth-child(2) a {
+  @apply delay-[0.2s];
+}
+.card:hover li:nth-child(3) a {
+  @apply delay-[0.3s];
+}
+.card:hover li:nth-child(4) a {
+  @apply delay-[0.4s];
+}
+
+/**** Personal Details ****/
+.details {
+  @apply absolute w-full h-[120px] z-[1] p-2.5 left-0 bottom-0;
+  background: #fff;
+}
+.details h2 {
+  @apply text-center mx-0 my-[30px] p-0;
+}
+.details h2 .job-title {
+  @apply text-base leading-10 text-[#181818] font-light;
+}
+.jane {
+  @apply absolute bottom-[-120px] opacity-0 w-full h-[120px] z-[3] transition-[0.4s] p-2.5 left-0;
+  background: #fff;
+}
+.profile-two .social-icons li a {
+  @apply rounded-[50%];
+}
+.card:hover .profile-img--two {
+  transform: rotateY(180deg);
+}
+.card:hover .jane {
+  @apply delay-[0.5s] opacity-100 left-0 bottom-0;
+}

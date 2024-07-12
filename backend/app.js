@@ -12,6 +12,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User= require("./model/user.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const Expresserror = require("./utils/expressError.js");
 const bodyParser = require('body-parser');
 const cors = require("cors")
@@ -25,6 +26,8 @@ const ideaSuccessFull = require("./routers/ideaSuccess.js")
 const blog = require("./routers/blog.js");
 app.use(cors());
 app.use(bodyParser.json());
+
+const dbUrl = process.env.ATLASDB_URL;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -41,20 +44,20 @@ main()
         console.log(err)
     });
 // session data storing in atlasdb
-// const store = MongoStore.create({
-//     mongoUrl : 'mongodb://127.0.0.1:27017/E-Cell',
-//     crypto : {
-//         secret : process.env.SECRET,
-//     },
-//     touchAfter : 24*3600,
-// })
+const store = MongoStore.create({
+    mongoUrl : dbUrl,
+    crypto : {
+        secret : process.env.SECRET,
+    },
+    touchAfter : 24*3600,
+})
 
-// store.on("error", () =>{
-//     console.log("error in mongo session store", err);
-// })
+store.on("error", () =>{
+    console.log("error in mongo session store", err);
+})
 
     const sessionOption ={
-        // store,
+        store,
         secret : "mysecret",
         resave : false,
         saveUninitialized  : true,
@@ -75,7 +78,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/E-Cell');
+    await mongoose.connect(dbUrl);
 }
 app.get("", (req,res) =>{
     res.send("home page");

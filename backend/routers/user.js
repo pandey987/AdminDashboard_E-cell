@@ -4,7 +4,7 @@ const User = require("../model/user.js");
 const Event = require("../model/event.js");
 const passport = require("passport");
 const sendMail = require("../utils/nodeMailer.js");
-const { isloggedin } = require("../middleware.js");
+const { isloggedin, isThisAdmin } = require("../middleware.js");
 
 //*******User************/
 router.get("/login", (req, res) => {
@@ -119,4 +119,8 @@ router.post("/event/:eventid", isloggedin, (req,res) =>{
     res.json({"status" : 200,"message" : "rendering particular event for user"})
 })
 
+
+router.get("/userRole",isloggedin, isThisAdmin ,async(req,res) =>{
+    res.json({"status" : 200, "role" : "admin"})
+})
 module.exports = router;
